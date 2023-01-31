@@ -5,7 +5,7 @@ const postAndFetch = async (req, res) => {
   const cityName = req.body.cityName;
   try {
     const weatherDataFetch = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=${key.API_KEY}`
+      `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&APPID=${key.API_KEY}&units=metric`
     );
     const weatherData = await weatherDataFetch.json();
     if (weatherData.cod === "404") {
@@ -13,10 +13,7 @@ const postAndFetch = async (req, res) => {
     } else {
       const responseData = {
         cityName: weatherData.name,
-        country: weatherData.sys.country,
-        temperature: `${parseFloat(
-          Number(weatherData.main.temp) - 273.15
-        ).toFixed(2)} °C`,
+        temperature: `${weatherData.main.temp} °C`,
       };
       res.send(responseData);
     }

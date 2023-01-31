@@ -9,6 +9,7 @@ describe("POST /weather", () => {
     const response = await request.post("/weather").send({ cityName: city });
     expect(response.statusCode).toBe(200);
     expect(response.body).toBeInstanceOf(Object);
+    expect(response.body.cityName).toBe("Amsterdam");
   });
   it("{weatherText: City is not found!}, when incorrect cityName", async () => {
     const city = "Blablabla";
